@@ -34,3 +34,9 @@
 *.bin
 
 memory-use.log
+
+wifi_creds.h
+
+lib
+target
+
