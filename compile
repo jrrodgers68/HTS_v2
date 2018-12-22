@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ~/repos/firmware/modules
+
+make all PLATFORM=photon APPDIR=~/repos/HTS_v2
+
+cd ~/repos/HTS_v2
+

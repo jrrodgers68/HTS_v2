@@ -33,6 +33,7 @@ void startWifi()
 {
     WiFi.on();
     WiFi.clearCredentials();
+    delay(100);
     WiFi.setCredentials(WIFI_SSA, WIFI_PWD);
     waitUntil(WiFi.ready);
 }
@@ -66,12 +67,16 @@ void callback(char* topic, byte* payload, unsigned int length)
 // setup() runs once, when the device is first turned on.
 void setup()
 {
+    pinMode(D7, OUTPUT);
+
+    dht.begin();
+
+    // get battery level
     batteryMonitor.begin();
     batteryMonitor.quickStart();
     float stateOfCharge = batteryMonitor.getSoC();
 
-    dht.begin();
-
+    // get temp/humidity
     float temp = dht.getTempFarenheit();
     float humidity = dht.getHumidity();
 
@@ -109,7 +114,11 @@ void loop()
         client.loop();
         if(gFlashLED)
         {
-            // turn LED on/ sleep 500 millis / turn LED off / sleep 500 milis
+            // turn LED on/ sleep / turn LED off / sleep
+            digitalWrite(D7, HIGH);
+            delay(300);
+            digitalWrite(D7, LOW);
+            delay(300);
         }
     }
 }
